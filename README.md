@@ -1,160 +1,223 @@
-# marionnet-virtualized 🖥️
-A Marionnet virtual machine running on Debian 11
+# Marionnet-virtualized 🖥️🚀
 
-## Procédure de construction
+Une machine virtuelle **Marionnet** basée sur **Debian 11** pour une expérience de virtualisation optimisée.
 
-1. Partir d’un ISO Debian 11 amd64, compte utilisateur etudiant/etudiant, installer sans environnement de bureau avec serveur SSH et web.
+---
 
-2. Installation d’XFCE4 de manière minimaliste
+## Table des matières
+- [Démarrage rapide ⚡](#démarrage-rapide-)
+- [Procédure de construction 🛠️](#procédure-de-construction-)
+  - [1. Préparation de l'installation](#1-préparation-de-linstallation)
+  - [2. Installation de l'environnement XFCE4](#2-installation-de-lenvironnement-xfce4)
+  - [3. Configuration de l'autologin](#3-configuration-de-lautologin)
+  - [4. Outils additionnels pour hyperviseurs](#4-outils-additionnels-pour-hyperviseurs)
+  - [5. Outils pour VirtualBox](#5-outils-pour-virtualbox)
+  - [6. Installation des dépendances de Marionnet](#6-installation-des-dépendances-de-marionnet)
+  - [7. Installation de Marionnet](#7-installation-de-marionnet)
+  - [8. Installation et configuration de Konsole](#8-installation-et-configuration-de-konsole)
+  - [9. Installation de Firefox](#9-installation-de-firefox)
+  - [10. Personnalisation du lanceur d'applications](#10-personnalisation-du-lanceur-dapplications)
+  - [11. Optimisation système et démarrage](#11-optimisation-système-et-démarrage)
+  - [12. Configuration finale et nettoyage](#12-configuration-finale-et-nettoyage)
+- [Export et finalisation 📦](#export-et-finalisation-)
+- [Licence 📄](#licence-)
 
+---
+
+## Démarrage rapide ⚡
+
+1. **Télécharger la machine virtuelle**  
+   [VM-Marionnet-v1.ova](https://github.com/MichelBaie/marionnet-virtualized/releases/download/v1/VM-Marionnet-v1.ova)
+
+2. **Importer**  
+   Utilisez [VirtualBox](https://www.virtualbox.org/wiki/Downloads) ou [VMWare](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion).
+
+3. **Lancer la machine**  
+   Profitez immédiatement de votre environnement Marionnet !
+
+---
+
+## Procédure de construction 🛠️
+
+### 1. Préparation de l'installation
+- **Base** : ISO Debian 11 (amd64)
+- **Compte utilisateur** : `etudiant/etudiant`
+- **Installation minimale** : Installation sans environnement de bureau, avec serveur SSH et web
+
+---
+
+### 2. Installation de l'environnement XFCE4
+Installez un bureau léger et efficace :
 ```bash
 apt update
 apt install xfce4 xfce4-goodies
 ```
 
-3. Configuration de l’autologin
+---
 
+### 3. Configuration de l'autologin
+Activez l'autologin pour l'utilisateur `etudiant` :
 ```bash
 nano /etc/lightdm/lightdm.conf
-
-> autologin-user=etudiant
+```
+Ajoutez/modifiez :
+```
+autologin-user=etudiant
 ```
 
-4. Installation des outils additionels pour chaque hyperviseur
+---
 
+### 4. Installation des outils additionnels pour hyperviseurs
+Installez les outils nécessaires pour divers hyperviseurs :
 ```bash
 apt install open-vm-tools-desktop qemu-guest-agent hyperv-daemons spice-vdagent
 ```
 
-5. Installation des outils additionels pour VirtualBox
+---
 
+### 5. Outils pour VirtualBox
+Installez les outils spécifiques pour VirtualBox :
 ```bash
 apt install build-essentials dkms linux-headers-amd64 --no-install-recommends
 bash VBoxLinuxAdditions.run
 ```
 
-6. Installation des dépendances de Marionnet
+---
 
+### 6. Installation des dépendances de Marionnet
+Installez l'ensemble des dépendances nécessaires :
 ```bash
 apt install flex bison gawk graphviz uml-utilities bzr opam liblablgtk3-ocaml-dev glade libgtksourceview-3.0-dev libtool bridge-utils gettext fonts-noto elementary-xfce-icon-theme rlfe vde2 libc6-i386 camlp4-extra --no-install-recommends
 ```
 
-7. Installation de Marionnet
+---
 
+### 7. Installation de Marionnet
+Téléchargez et installez Marionnet :
 ```bash
 wget https://bazaar.launchpad.net/~marionnet-drivers/marionnet/trunk/download/head:/useful-scripts/marionnet_from_scratch
 bash marionnet_from_scratch
 sudo rm -R /root/.opam
 ```
 
-8. Installation de Konsole
+---
 
+### 8. Installation et configuration de Konsole
+Remplacez `xterm` par Konsole pour une meilleure expérience :
 ```bash
 apt remove xterm
 apt install konsole --no-install-recommends
 ```
-
-9. Activation de Konsole dans la configuration de Marionnet
-
-```
+Ensuite, activez Konsole dans Marionnet :
+```bash
 nano /etc/marionnet/marionnet.conf
-
->MARIONNET_TERMINAL="konsole,-T,-e"
+```
+Ajoutez la ligne suivante :
+```
+MARIONNET_TERMINAL="konsole,-T,-e"
 ```
 
-10. Installation de Firefox
+---
 
-```
+### 9. Installation de Firefox
+Installez Firefox ESR sans dépendances supplémentaires :
+```bash
 apt install firefox-esr --no-install-recommends
 ```
 
-11. Ajout du .desktop sur le bureau et personnalisation du lanceur d’applications avec alacarte (catégorie Éducation)
+---
 
-```
+### 10. Personnalisation du lanceur d'applications
+- **Ajout du .desktop** sur le bureau
+- **Personnalisation** via `alacarte` (catégorie *Éducation*)
+```bash
 apt install alacarte --no-install-recommends
 ```
 
-12. Désactivation de la mise en veille de l’écran, ainsi que du verouillage automatique
+---
 
-```
-Paramètres > Gestionnaire d'alimentation
-```
+### 11. Optimisation système et démarrage
+- **Désactivation de la mise en veille et du verrouillage automatique**  
+  _Via : Paramètres > Gestionnaire d'alimentation_
 
-13. Activer Marionnet au démarrage de XFCE (et désactiver Notification Daemon + Verrouilleur d’écran)
+- **Activation de Marionnet au démarrage de XFCE**  
+  Désactivez également le Notification Daemon et le verrouilleur d'écran  
+  _Via : Paramètres > Session et démarrage_
 
-```
-Paramètres > Session et démarrage
-```
+- **Optimisation du démarrage avec GRUB**  
+  Modifiez `/etc/default/grub` :
+  ```bash
+  nano /etc/default/grub
+  ```
+  Changez :
+  ```
+  GRUB_TIMEOUT=0
+  ```
+  Puis mettez à jour GRUB :
+  ```bash
+  update-grub
+  ```
 
-14. Modifier GRUB pour que le démarrage se fasse instantanément
+---
 
-```
-nano /etc/default/grub
+### 12. Configuration finale et nettoyage
+- **Fond d’écran** : Choisissez le fond d’écran de l’Université Sorbonne Paris Nord (ex-Univ Paris 13) via l’interface graphique.
+- **Permissions sudo** : Configurez l’utilisateur `etudiant` pour des droits sudo sans mot de passe.
+  ```bash
+  nano /etc/sudoers
+  ```
+  Ajoutez :
+  ```
+  etudiant ALL=(ALL) NOPASSWD: ALL
+  ```
+- **Redémarrage** : Vérifiez le bon fonctionnement.
+  ```bash
+  reboot
+  ```
 
-> GRUB_TIMEOUT=0
+---
 
-update-grub
-```
+## Export et finalisation 📦
 
-15. Définir pour fond d’écran celui de l’Université Sorbonne Paris Nord (ex Univ Paris 13)
+1. **Nettoyage de la machine virtuelle** :
+   ```bash
+   apt autoremove
+   apt autoclean
+   apt clean
+   history -c
+   poweroff
+   ```
 
-```
-> graphiquement
-```
+2. **Nettoyage du disque dur** (démarrez sur SystemRescue) :
+   ```bash
+   zerofree -v /dev/sda1
+   poweroff
+   ```
 
-16. Configurer les permissions sudo de l’utilisateur etudiant
+3. **Optimisation de la machine** :
+   - Configurez à **1 cœur CPU** et **2 Go de RAM**
+   - Défragmentez et compressez le disque (via l’interface graphique)
+   - Définissez l’identifiant de la machine : `etudiant/etudiant`
 
-```
-nano /etc/sudoers
+4. **Conversion du disque** en format `.qcow2` :
+   ```bash
+   qemu-img convert -f vmdk -O qcow2 -c input.vmdk output.qcow2
+   ```
 
-> etudiant ALL=(ALL) NOPASSWD: ALL
-```
+5. **Export de la machine virtuelle**  
+   Exportez au format OVA 1.0 via VirtualBox.
 
-16. Redémarrer pour vérifier le bon fonctionnement de la machine virtuelle
+6. **Finalisation**  
+   Zippez le tout et publiez ! 📤
 
-```
-reboot
-```
+---
 
-17. Nettoyer la machine virtuelle
+## Licence 📄
 
-```
-apt autoremove
-apt autoclean
-apt clean
-history -c
-poweroff
-```
+Ce projet est sous licence [MIT](LICENSE).
+Consultez le fichier `LICENSE` pour plus d’informations.
 
-18. Démarrer sur la distribution systemrescue pour nettoyer le disque dur de la machine virtuelle
+---
 
-```
-zerofree -v /dev/sda1
-poweroff
-```
-
-19. Configurer les spécifications de la machine à 1 coeur de CPU et 2go de RAM, puis défragmenter et compresser le disque
-
-```
-> graphiquement
-```
-
-20. Définir la description de la machine
-
-```
-Identifiant : etudiant/etudiant
-```
-
-21. Convertir le disque en .qcow2
-
-```
-qemu-img convert -f vmdk -O qcow2 -c input.vmdk output.qcow2
-```
-
-22. Exporter la machine virtuelle via VirtualBox en ova 1.0
-
-```
-> graphiquement
-```
-
-Zipper et publier !
+> **Besoin d’aide ?**  
+> Pour toute question ou suggestion, n’hésitez pas à ouvrir une *issue* ou à proposer une *pull request*.
