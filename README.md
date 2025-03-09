@@ -27,7 +27,7 @@ Une machine virtuelle **Marionnet** basée sur **Debian 11** pour une expérienc
 ## Démarrage rapide ⚡
 
 1. **Télécharger la machine virtuelle**  
-   [VM-Marionnet-v1.ova](https://github.com/MichelBaie/marionnet-virtualized/releases/download/v1/VM-Marionnet-v1.ova)
+   [VM-Marionnet-v1.ova](https://github.com/MichelBaie/marionnet-virtualized/releases/)
 
 2. **Importer**  
    Utilisez [VirtualBox](https://www.virtualbox.org/wiki/Downloads) ou [VMWare](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion).
