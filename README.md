@@ -103,18 +103,17 @@ sudo rm -R /root/.opam
 ---
 
 ### 8. Installation et configuration de Konsole
-Remplacez `xterm` par Konsole pour une meilleure expérience :
+Remplacez `xterm` par `xfce4-terminal` pour une meilleure expérience :
 ```bash
 apt remove xterm
-apt install konsole --no-install-recommends
 ```
-Ensuite, activez Konsole dans Marionnet :
+Ensuite, activez le terminal XFCE dans Marionnet :
 ```bash
 nano /etc/marionnet/marionnet.conf
 ```
 Ajoutez la ligne suivante :
 ```
-MARIONNET_TERMINAL="konsole,-T,-e"
+MARIONNET_TERMINAL="xfce4-terminal,-T,-e"
 ```
 
 ---
@@ -200,10 +199,11 @@ apt install alacarte --no-install-recommends
    - Définissez l’identifiant de la machine : `etudiant/etudiant`
 
 4. **Conversion du disque** en format `.qcow2` :
+   
    ```bash
    qemu-img convert -f vmdk -O qcow2 -c input.vmdk output.qcow2
    ```
-
+   
 5. **Export de la machine virtuelle**  
    Exportez au format OVA 1.0 via VirtualBox.
 
