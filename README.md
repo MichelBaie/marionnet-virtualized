@@ -78,7 +78,7 @@ apt install open-vm-tools-desktop qemu-guest-agent hyperv-daemons spice-vdagent
 ### 5. Outils pour VirtualBox
 Installez les outils spécifiques pour VirtualBox :
 ```bash
-apt install build-essential dkms linux-headers-amd64 --no-install-recommends
+apt install build-essential dkms --no-install-recommends
 bash VBoxLinuxAdditions.run
 ```
 
